@@ -9,7 +9,9 @@
         "google",
         "actions",
         "aog",
-        "assistant"
+        "assistant",
+        "chatbot",
+        "assistant-chat-bots"
     ],
     "author": "Wassim Chegham <github@wassimchegham.com>",
     "license": "MIT",
