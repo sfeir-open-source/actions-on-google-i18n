@@ -55,7 +55,7 @@ i18n.configure({directory: __dirname + '/src/locales'})
   const actionMap = new Map();
   actionMap.set('input.welcome', (app) => {
     
-    app.ask(app.__('WELCOME'), { name: 'Wassim' });
+    app.ask(app.__('WELCOME', { name: 'Wassim' }));
 
   });
   app.handleRequest(actionMap);
@@ -78,7 +78,7 @@ exports.agent = (request, response) => {
   const actionMap = new Map();
   actionMap.set('input.welcome', (app) => {
     
-    app.ask(app.__('WELCOME'), { name: 'Wassim' });
+    app.ask(app.__('WELCOME', { name: 'Wassim' }));
 
   });
   app.handleRequest(actionMap);
