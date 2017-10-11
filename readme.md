@@ -20,7 +20,7 @@ Here is a sample locale file.
 module.exports = {
     "WELCOME": `
         <speak>
-          Hi there, I'm your amazing assistant. What can I do for ya?
+          Hi {name}, I'm your amazing assistant. What can I do for ya?
         </speak>`
 };
 
@@ -28,7 +28,7 @@ module.exports = {
 module.exports = {
     "WELCOME": `
         <speak>
-          Hi there, I'm your bloody assistant. How can I help?
+          Hi {name}, I'm your bloody assistant. How can I help?
         </speak>`
 };
 ```
@@ -55,7 +55,7 @@ i18n.configure({directory: __dirname + '/src/locales'})
   const actionMap = new Map();
   actionMap.set('input.welcome', (app) => {
     
-    app.ask(app.__('WELCOME'));
+    app.ask(app.__('WELCOME', { name: 'Wassim' }));
 
   });
   app.handleRequest(actionMap);
@@ -78,7 +78,7 @@ exports.agent = (request, response) => {
   const actionMap = new Map();
   actionMap.set('input.welcome', (app) => {
     
-    app.ask(app.__('WELCOME'));
+    app.ask(app.__('WELCOME', { name: 'Wassim' }));
 
   });
   app.handleRequest(actionMap);
