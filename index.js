@@ -6,6 +6,7 @@ class I18n {
         }
 
         this.directory = options.directory;
+        this.defaultLocale = options.defaultLocale || "en-us";
 
         return this;
     }
@@ -16,7 +17,7 @@ class I18n {
           locale = locale.toLowerCase();
         }
         else {
-          locale = options.defaultLocale;
+          locale = this.defaultLocale;
         }
 
         app.__ = (key, context = {}) => {
