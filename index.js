@@ -10,7 +10,14 @@ class I18n {
         return this;
     }
     use(app) {
-        const locale = app.getUserLocale();
+        let locale = app.getUserLocale();
+
+        if (locale) {
+          locale = locale.toLowerCase();
+        }
+        else {
+          locale = options.defaultLocale;
+        }
 
         app.__ = (key, context = {}) => {
             const locales = require(`${this.directory}/${locale}`);
