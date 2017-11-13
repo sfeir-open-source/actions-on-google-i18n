@@ -8,6 +8,7 @@ class I18n {
 
     this.directory = options.directory;
     this.defaultLocale = options.defaultLocale || "en-us";
+    this.defaultExtension = options.defaultExtension || "js";
 
     return this;
   }
@@ -22,7 +23,7 @@ class I18n {
 
     app.__ = (key, context = {}) => {
       try {
-        const locales = require(`${this.directory}/${locale}`);
+        const locales = require(`${this.directory}/${locale}.${this.defaultExtension}`);
         let translation = locales[key] || {};
 
         if (translation) {
