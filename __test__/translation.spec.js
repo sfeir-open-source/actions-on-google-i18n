@@ -1,6 +1,6 @@
 const i18n = require("../index");
-const directory = `${__dirname}/locales`;
-const directoryEmpty = `${__dirname}/locales-empty`;
+const directory = `${__dirname}/src/locales`;
+const directoryEmpty = `${__dirname}/src/locales-empty`;
 
 describe("translation", () => {
   describe("when getUserLocale is NULL", () => {
@@ -49,5 +49,5 @@ describe("translation", () => {
       expect(mockApp.__("key")).toBe("valeur");
     });
   });
-  
+
 });

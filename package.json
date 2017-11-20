@@ -28,5 +28,8 @@
   },
   "devDependencies": {
     "jest": "^21.2.1"
+  },
+  "dependencies": {
+    "app-root-dir": "^1.0.2"
   }
 }

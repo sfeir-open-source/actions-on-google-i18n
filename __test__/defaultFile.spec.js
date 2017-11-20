@@ -1,14 +1,27 @@
 const i18n = require("../index");
-const mockApp = {
-  getUserLocale() {
-    return "en-US";
-  }
-};
+i18n.projectDirectory = "./__test__";
 
 describe("defaultFile", () => {
+  it("don't use default 'src/locales/index.json' file if missing argument folder AND locale is en-US", () => {
+    const mockApp = {
+      getUserLocale() {
+        return "en-US";
+      }
+    };
+    i18n.configure().use(mockApp);
+    const value = mockApp.__("key");
+    expect(value).toEqual("value");
+  });
 
-  it("trigger an exception for a missing argument defaultFile", () => {
-    expect(() => i18n.configure()).toThrowError(`Either "directory" or "defaultFile" are required`);
+  it("don't use default 'src/locales/index.json' file if missing argument folder AND locale is NULL", () => {
+    const mockApp = {
+      getUserLocale() {
+        return null;
+      }
+    };
+    i18n.configure().use(mockApp);
+    const value = mockApp.__("key");
+    expect(value).toEqual("value");
   });
 
   it("trigger an exception for a non-existant file", () => {
@@ -21,12 +34,16 @@ describe("defaultFile", () => {
     const expectedError = `[actions-on-google-i18n] file "${defaultFile}" does not exist.`;
     expect(() => i18n.configure({ defaultFile })).toThrowError(expectedError);
   });
-  
+
   it("load locales from a valid folder", () => {
-    const defaultFile = `${__dirname}/locales/en-US.js`;
+    const mockApp = {
+      getUserLocale() {
+        return "en-US";
+      }
+    };
+    const defaultFile = `${__dirname}/src/locales/en-US.js`;
     i18n.configure({ defaultFile }).use(mockApp);
     const value = mockApp.__("key");
-    expect(value).toContain("value");
+    expect(value).toEqual("value");
   });
-
 });

@@ -1,16 +1,23 @@
 const fs = require("fs");
+const appRootDir = require("app-root-dir");
 
 class I18n {
   _fileExists(file) {
-    return fs.existsSync(file)
-      || fs.existsSync(`${file}.js`)
-      || fs.existsSync(`${file}.json`);
+    return (
+      fs.existsSync(file) ||
+      fs.existsSync(`${file}.js`) ||
+      fs.existsSync(`${file}.json`)
+    );
+  }
+
+  constructor() {
+    this.projectDirectory = appRootDir.get();    
   }
 
   configure(options = {}) {
-    if (!options.directory && !options.defaultFile) {
-      throw new Error('Either "directory" or "defaultFile" are required.');
-    }
+    // if (!options.directory && !options.defaultFile) {
+    //   throw new Error('Either "directory" or "defaultFile" are required.');
+    // }
 
     if (options.directory && !this._fileExists(options.directory)) {
       throw new Error(
@@ -24,14 +31,22 @@ class I18n {
       );
     }
 
-    this.directory = options.directory;
-    this.defaultFile = options.defaultFile;
-    this.defaultLocale = options.defaultLocale || "en-us";
+    this._options = options;
+    this.directory =
+      options.directory || `${this.projectDirectory}/src/locales`;
+    this.defaultFile =
+      options.defaultFile || `${this.projectDirectory}/src/locales/index.json`;
+    this.defaultLocale = options.defaultLocale || "en-US";
     this.defaultExtension = options.defaultExtension;
 
     return this;
   }
   use(app) {
+
+    if (!this._options) {
+      this.configure();
+    }
+
     let locale = app.getUserLocale();
 
     if (!locale) {
@@ -39,7 +54,9 @@ class I18n {
     }
 
     if (!locale) {
-      throw new Error(`[actions-on-google-i18n] Locale is not valid. Found "${locale}".`)
+      throw new Error(
+        `[actions-on-google-i18n] Locale is not valid. Found "${locale}".`
+      );
     }
 
     locale = locale.toLowerCase();
@@ -49,10 +66,17 @@ class I18n {
       let file = `${this.directory}/${locale}`;
 
       if (this.defaultExtension) {
-        file = `${file}.${this.defaultExtension}`;
+        if (["js", "json"].includes(this.defaultExtension)) {
+          file = `${file}.${this.defaultExtension}`;
+        }
+        else {
+          throw new Error(
+            `[actions-on-google-i18n] extension "${this.defaultExtension}" is not allowed. Only "js" and "json" files are allowed.`
+          );
+        }
       }
 
-      if (this.defaultFile) {
+      if (this._options.defaultFile && this._fileExists(this.defaultFile)) {
         file = this.defaultFile;
       }
 

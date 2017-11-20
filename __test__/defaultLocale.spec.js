@@ -4,7 +4,7 @@ const mockApp = {
     return null;
   }
 };
-const directory = `${__dirname}/locales`;
+const directory = `${__dirname}/src/locales`;
 
 describe("defaultLocale", () => {
 
@@ -21,7 +21,7 @@ describe("defaultLocale", () => {
     const defaultLocale = `en-US`;
     i18n.configure({ directory, defaultLocale }).use(mockApp);
     const value = mockApp.__("key");
-    expect(value).toContain("value");
+    expect(value).toEqual("value");
   });
 
 });

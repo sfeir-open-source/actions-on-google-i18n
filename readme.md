@@ -3,33 +3,34 @@
 
 ## Prepare
 
-Create a folder with your locales, ie:
+Create a folder with your locales (you can use either `js` or `json` files), e.g.:
 
 ```text
 ├── src/
 │   ├── locales/
-│   │   ├── en-US.js
-│   │   └── en-GB.js
+│   │   ├── en-GB.json
+│   │   └── en-US.json
 
 ```
 
-Here is a sample locale file.
+Each file must export (or have) a valid JSON content:
 
+```json
+// src/locales/en-US.json
+{
+  "WELCOME": `
+      <speak>
+        Hi {name}, I'm your amazing assistant. What can I do for ya?
+      </speak>`
+}
+```
 ```js
-// src/locales/en-US.js
-module.exports = {
-    "WELCOME": `
-        <speak>
-          Hi {name}, I'm your amazing assistant. What can I do for ya?
-        </speak>`
-};
-
 // src/locales/en-GB.js
 module.exports = {
-    "WELCOME": `
-        <speak>
-          Hi {name}, I'm your bloody assistant. How can I help?
-        </speak>`
+  "WELCOME": `
+      <speak>
+        Hi {name}, I'm your bloody assistant. How can I help?
+      </speak>`
 };
 ```
 
@@ -37,18 +38,36 @@ module.exports = {
 
 `npm i @manekinekko/actions-on-google-i18n -S`
 
-## Configure
+## Options
 
-Import in your main entry file:
+### directory
+**default:** `./src/locales/`
+
+The directory where the locale files are located.
+
+### defaultFile
+**default:** `index.js` || `index.json`
+
+The default locale file that will **ALWAYS** be used for **ANY** locale.
+
+### defaultLocale
+**default:** `en-US`
+
+The default locale that will be used if no locale can be extracted from the Actions On Google SDK.
+
+## Quick setup
+
+Import in your main entry file and call the `.use()` method to register your `DialogflowApp` instance:
 
 ```js
 const i18n = require('@manekinekko/actions-on-google-i18n');
-const app = new ApiAiApp({ request, response });
-i18n.configure({directory: __dirname + '/src/locales'})
-    .use(app);
+const app = new DialogflowApp({ request, response });
+i18n.use(app);
 ```
 
 ## Use
+
+To get the localized content, call the `app.__(string, context)` method and provide the content key to get the content. You can also provide an optional context object if you set variables in your content:
 
 ```js
 
@@ -62,18 +81,23 @@ i18n.configure({directory: __dirname + '/src/locales'})
 
 ```
 
-## Full sample
+## Full setup
 
 ```js
 'use strict';
 const i18n = require('@manekinekko/actions-on-google-i18n');
 const aog = require('actions-on-google');
-const ApiAiApp = aog.ApiAiApp;
+const DialogflowApp = aog.DialogflowApp;
 
 exports.agent = (request, response) => {
-  const app = new ApiAiApp({ request, response });
-  i18n.configure({directory: __dirname + '/src/locales'})
-      .use(app);
+  const app = new DialogflowApp({ request, response });
+  i18n
+    .configure({
+      directory: __dirname + '/src/locales',
+      defaultFile: __dirname + '/src/locales/index.json',
+      defaultLocale: 'en-US',
+    })
+    .use(app);
 
   const actionMap = new Map();
   actionMap.set('input.welcome', (app) => {
