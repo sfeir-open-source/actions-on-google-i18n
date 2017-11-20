@@ -1,26 +1,32 @@
 {
-    "name": "@manekinekko/actions-on-google-i18n",
-    "version": "1.2.0",
-    "description": "An i18n module for the Actions On Google SDK",
-    "main": "index.js",
-    "scripts": {},
-    "keywords": [
-        "i18n",
-        "google",
-        "actions",
-        "aog",
-        "assistant",
-        "chatbot",
-        "assistant-chat-bots"
-    ],
-    "author": "Wassim Chegham <github@wassimchegham.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/manekinekko/actions-on-google-i18n/issues"
-    },
-    "homepage": "https://github.com/manekinekko/actions-on-google-i18n#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/manekinekko/actions-on-google-i18n.git"
-    }
+  "name": "@manekinekko/actions-on-google-i18n",
+  "version": "1.2.0",
+  "description": "An i18n module for the Actions On Google SDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "prepublish": "npm test"
+  },
+  "keywords": [
+    "i18n",
+    "google",
+    "actions",
+    "aog",
+    "assistant",
+    "chatbot",
+    "assistant-chat-bots"
+  ],
+  "author": "Wassim Chegham <github@wassimchegham.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manekinekko/actions-on-google-i18n/issues"
+  },
+  "homepage": "https://github.com/manekinekko/actions-on-google-i18n#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manekinekko/actions-on-google-i18n.git"
+  },
+  "devDependencies": {
+    "jest": "^21.2.1"
+  }
 }
