@@ -10,7 +10,7 @@ describe("defaultExtention", () => {
   it("trigger a specific exception for an invalid defaultExtention", () => {
     const defaultExtension = `xxx`;
     const file = `${directory}/en-us.xxx`; // lowercase locale!!
-    const expectedError = `[actions-on-google-i18n] file "${file}" does not exist.`;
+    const expectedError = `[actions-on-google-i18n] extension "xxx" is not allowed. Only "js" and "json" files are allowed.`;
     i18n.configure({ directory, defaultExtension }).use(mockApp);
 
     expect(() => mockApp.__("key")).toThrowError(expectedError);

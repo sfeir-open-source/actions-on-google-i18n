@@ -18,10 +18,7 @@ Each file must export (or have) a valid JSON content:
 ```json
 // src/locales/en-US.json
 {
-  "WELCOME": `
-      <speak>
-        Hi {name}, I'm your amazing assistant. What can I do for ya?
-      </speak>`
+  "WELCOME": "<speak>Hi {name}, I'm your amazing assistant. What can I do for ya?</speak>"
 }
 ```
 ```js
