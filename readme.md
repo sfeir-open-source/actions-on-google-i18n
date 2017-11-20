@@ -18,16 +18,13 @@ Each file must export (or have) a valid JSON content:
 ```json
 // src/locales/en-US.json
 {
-  "WELCOME": "<speak>Hi {name}, I'm your amazing assistant. What can I do for ya?</speak>"
+  "WELCOME": "<speak>Hi {name}, I'm your awesome assistant. What can I do for ya?</speak>"
 }
 ```
-```js
-// src/locales/en-GB.js
+```json
+// src/locales/en-GB.json
 module.exports = {
-  "WELCOME": `
-      <speak>
-        Hi {name}, I'm your bloody assistant. How can I help?
-      </speak>`
+  "WELCOME": "<speak>Hi {name}, I'm your amazing assistant. How can I help?</speak>"
 };
 ```
 
