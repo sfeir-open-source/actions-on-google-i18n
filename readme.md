@@ -23,7 +23,7 @@ Each file must export (or have) a valid JSON content:
 ```
 ```json
 // src/locales/en-GB.json
-module.exports = {
+{
   "WELCOME": "<speak>Hi {name}, I'm your amazing assistant. How can I help?</speak>"
 };
 ```
