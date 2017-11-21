@@ -87,8 +87,8 @@ exports.agent = (request, response) => {
   const app = new DialogflowApp({ request, response });
   i18n
     .configure({
-      directory: __dirname + '/src/locales',
-      defaultFile: __dirname + '/src/locales/index.json',
+      directory: `${__dirname}/src/locales`,
+      defaultFile: `${__dirname}/src/locales/index.json`,
       defaultLocale: 'en-US',
     })
     .use(app);
