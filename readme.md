@@ -1,3 +1,7 @@
+![](https://img.shields.io/npm/l/@manekinekko/actions-on-google-i18n.svg)
+![](https://img.shields.io/npm/dw/@manekinekko/actions-on-google-i18n.svg)
+![](https://img.shields.io/npm/v/@manekinekko/actions-on-google-i18n.svg)
+
 # An i18n module for the Actions On Google SDK
 
 
