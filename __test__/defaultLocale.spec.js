@@ -1,7 +1,6 @@
 const i18n = require("../index");
 const mockApp = {
-  getUserLocale() {
-    return null;
+  middleware() {
   }
 };
 const directory = `${__dirname}/src/locales`;
@@ -13,10 +12,10 @@ describe("defaultLocale", () => {
     const file = `${directory}/${defaultLocale}`;
     const expectedError = `[actions-on-google-i18n] file "${file}" does not exist.`;
     i18n.configure({ directory, defaultLocale }).use(mockApp);
-    
+
     expect(() => mockApp.__("key")).toThrowError(expectedError);
   });
-  
+
   it("load locales from a valid defaultLocale", () => {
     const defaultLocale = `en-US`;
     i18n.configure({ directory, defaultLocale }).use(mockApp);

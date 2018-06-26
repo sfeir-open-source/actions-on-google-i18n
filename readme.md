@@ -59,24 +59,18 @@ Import in your main entry file and call the `.use()` method to register your `Di
 
 ```js
 const i18n = require('@manekinekko/actions-on-google-i18n');
-const app = new DialogflowApp({ request, response });
+const app = dialogflow({ debug: true });;
 i18n.use(app);
 ```
 
 ## Use
 
-To get the localized content, call the `app.__(string, context)` method and provide the content key to get the content. You can also provide an optional context object if you set variables in your content:
+To get the localized content, call the `conv.__(string, context)` method and provide the content key to get the content. You can also provide an optional context object if you set variables in your content:
 
 ```js
-
-  const actionMap = new Map();
-  actionMap.set('input.welcome', (app) => {
-    
-    app.ask(app.__('WELCOME', { name: 'Wassim' }));
-
-  });
-  app.handleRequest(actionMap);
-
+app.intent('welcome', (conv) => {
+    conv.ask(conv.__('WELCOME', { name: 'Wassim' }));
+});
 ```
 
 ## Full setup
@@ -84,28 +78,24 @@ To get the localized content, call the `app.__(string, context)` method and prov
 ```js
 'use strict';
 const i18n = require('@manekinekko/actions-on-google-i18n');
-const aog = require('actions-on-google');
-const DialogflowApp = aog.DialogflowApp;
+const functions = require('firebase-functions');
+const { dialogflow } = require('actions-on-google');
 
-exports.agent = (request, response) => {
-  const app = new DialogflowApp({ request, response });
-  i18n
-    .configure({
-      directory: `${__dirname}/src/locales`,
-      defaultFile: `${__dirname}/src/locales/index.json`,
-      defaultLocale: 'en-US',
-    })
-    .use(app);
+const app = dialogflow({ debug: true });
 
-  const actionMap = new Map();
-  actionMap.set('input.welcome', (app) => {
-    
-    app.ask(app.__('WELCOME', { name: 'Wassim' }));
+i18n
+  .configure({
+    directory: `${__dirname}/src/locales`,
+    defaultFile: `${__dirname}/src/locales/index.json`,
+    defaultLocale: 'en-US',
+  })
+  .use(app);
+  
+app.intent('welcome', (conv) => {
+  conv.ask(conv.__('WELCOME', { name: 'Wassim' }));
+});
 
-  });
-  app.handleRequest(actionMap);
-
-};
+exports.agent = functions.https.onRequest(app);
 ```
 
 # Licence
