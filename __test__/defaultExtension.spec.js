@@ -1,19 +1,17 @@
 const i18n = require("../index");
-const mockApp = {
-  getUserLocale() {
-    return "en-US";
-  }
-};
+const AppMock = require('./appMock');
 const directory = `${__dirname}/src/locales`;
+
+const mockApp = new AppMock();
 
 describe("defaultExtention", () => {
   it("trigger a specific exception for an invalid defaultExtention", () => {
     const defaultExtension = `xxx`;
     const file = `${directory}/en-us.xxx`; // lowercase locale!!
     const expectedError = `[actions-on-google-i18n] extension "xxx" is not allowed. Only "js" and "json" files are allowed.`;
-    i18n.configure({ directory, defaultExtension }).use(mockApp);
+    i18n.configure({ defaultExtension });
 
-    expect(() => mockApp.__("key")).toThrowError(expectedError);
+    expect(() => i18n.use(mockApp)).toThrowError(expectedError);
   });
 
   it("load locales from a valid '.js' defaultExtention", () => {

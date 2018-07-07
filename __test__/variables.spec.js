@@ -1,10 +1,8 @@
 const i18n = require("../index");
+const AppMock = require('./appMock');
 i18n.projectDirectory = "./__test__";
-const mockApp = {
-  getUserLocale() {
-    return "en-US";
-  }
-};
+
+const mockApp = new AppMock();
 
 describe("variables", () => {
   it("show unparsed variable", () => {

@@ -1,10 +1,8 @@
 const i18n = require("../index");
+const AppMock = require('./appMock');
 i18n.projectDirectory = "./__test__";
-const mockApp = {
-  getUserLocale() {
-    return "en-US";
-  }
-};
+
+const mockApp = new AppMock();
 
 describe("directory", () => {
 
@@ -13,7 +11,7 @@ describe("directory", () => {
     const value = mockApp.__("key");
     expect(value).toEqual("value");
   });
-  
+
   it("load locales from a valid folder", () => {
     const directory = `${__dirname}/src/locales`;
     i18n.configure({ directory }).use(mockApp);
