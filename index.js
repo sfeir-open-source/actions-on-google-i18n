@@ -11,7 +11,7 @@ class I18n {
   }
 
   constructor() {
-    this.projectDirectory = appRootDir.get();    
+    this.projectDirectory = appRootDir.get();
   }
 
   configure(options = {}) {
@@ -41,29 +41,15 @@ class I18n {
 
     return this;
   }
+
   use(app) {
 
     if (!this._options) {
       this.configure();
     }
 
-    let locale = app.getUserLocale();
-
-    if (!locale) {
-      locale = this.defaultLocale;
-    }
-
-    if (!locale) {
-      throw new Error(
-        `[actions-on-google-i18n] Locale is not valid. Found "${locale}".`
-      );
-    }
-
-    locale = locale.toLowerCase();
-
-    const __i18n = (key, context = {}) => {
-      let translation = "";
-      let file = `${this.directory}/${locale}`;
+    const __i18nFactory = (conv) => {
+      let file = `${this.directory}/${this.getLocale(conv)}`;
 
       if (this.defaultExtension) {
         if (["js", "json"].includes(this.defaultExtension)) {
@@ -87,21 +73,46 @@ class I18n {
       }
 
       const locales = require(file);
-      translation = locales[key] || "";
 
-      if (translation) {
-        for (let ctxKey in context) {
-          translation = translation.replace(
-            "{" + ctxKey + "}",
-            context[ctxKey]
-          );
+      return (key, context = {}) => {
+        let translation = locales[key] || "";
+
+        if (translation) {
+          for (let ctxKey in context) {
+            translation = translation.replace(
+              "{" + ctxKey + "}",
+              context[ctxKey]
+            );
+          }
         }
-      }
 
-      return translation;
+        return translation;
+      };
     };
 
-    app.__ = app.i18n = __i18n;
+
+    // Register a middleware to set i18n function on each conv
+    app.middleware((conv) => {
+        conv.__ = conv.i18n = __i18nFactory(conv);
+    });
+
+    app.__ = app.i18n = __i18nFactory();
+  }
+
+  getLocale(conv) {
+    let locale = conv && conv.user && conv.user.locale;
+
+    if (!locale) {
+      locale = this.defaultLocale;
+    }
+
+    if (!locale) {
+      throw new Error(
+        `[actions-on-google-i18n] Locale is not valid. Found "${locale}".`
+      );
+    }
+
+    return locale.toLowerCase();
   }
 }
 
