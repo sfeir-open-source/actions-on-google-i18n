@@ -19,12 +19,12 @@
   "author": "Wassim Chegham <github@wassimchegham.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sfeiross/actions-on-google-i18n/issues"
+    "url": "https://github.com/sfeir-open-source/actions-on-google-i18n/issues"
   },
-  "homepage": "https://github.com/sfeiross/actions-on-google-i18n#readme",
+  "homepage": "https://github.com/sfeir-open-source/actions-on-google-i18n#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sfeiross/actions-on-google-i18n.git"
+    "url": "git+https://github.com/sfeir-open-source/actions-on-google-i18n.git"
   },
   "devDependencies": {
     "jest": "^21.2.1"
