@@ -1,10 +1,10 @@
 {
-  "name": "@manekinekko/actions-on-google-i18n",
+  "name": "@sfeir/actions-on-google-i18n",
   "version": "2.0.0",
   "description": "An i18n module for the Actions On Google SDK",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "prepublish": "npm test"
   },
   "keywords": [
@@ -19,12 +19,12 @@
   "author": "Wassim Chegham <github@wassimchegham.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/manekinekko/actions-on-google-i18n/issues"
+    "url": "https://github.com/sfeiross/actions-on-google-i18n/issues"
   },
-  "homepage": "https://github.com/manekinekko/actions-on-google-i18n#readme",
+  "homepage": "https://github.com/sfeiross/actions-on-google-i18n#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manekinekko/actions-on-google-i18n.git"
+    "url": "git+https://github.com/sfeiross/actions-on-google-i18n.git"
   },
   "devDependencies": {
     "jest": "^21.2.1"

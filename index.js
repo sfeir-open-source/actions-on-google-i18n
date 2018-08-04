@@ -1,5 +1,5 @@
-const fs = require("fs");
-const appRootDir = require("app-root-dir");
+const fs = require('fs');
+const appRootDir = require('app-root-dir');
 
 class I18n {
   _fileExists(file) {
@@ -15,13 +15,11 @@ class I18n {
   }
 
   configure(options = {}) {
-    // if (!options.directory && !options.defaultFile) {
-    //   throw new Error('Either "directory" or "defaultFile" are required.');
-    // }
-
     if (options.directory && !this._fileExists(options.directory)) {
       throw new Error(
-        `[actions-on-google-i18n] directory "${options.directory}" does not exist.`
+        `[actions-on-google-i18n] directory "${
+          options.directory
+        }" does not exist.`
       );
     }
 
@@ -36,28 +34,28 @@ class I18n {
       options.directory || `${this.projectDirectory}/src/locales`;
     this.defaultFile =
       options.defaultFile || `${this.projectDirectory}/src/locales/index.json`;
-    this.defaultLocale = options.defaultLocale || "en-US";
+    this.defaultLocale = options.defaultLocale || 'en-US';
     this.defaultExtension = options.defaultExtension;
 
     return this;
   }
 
   use(app) {
-
     if (!this._options) {
       this.configure();
     }
 
-    const __i18nFactory = (conv) => {
+    const __i18nFactory = conv => {
       let file = `${this.directory}/${this.getLocale(conv)}`;
 
       if (this.defaultExtension) {
-        if (["js", "json"].includes(this.defaultExtension)) {
+        if (['js', 'json'].includes(this.defaultExtension)) {
           file = `${file}.${this.defaultExtension}`;
-        }
-        else {
+        } else {
           throw new Error(
-            `[actions-on-google-i18n] extension "${this.defaultExtension}" is not allowed. Only "js" and "json" files are allowed.`
+            `[actions-on-google-i18n] extension "${
+              this.defaultExtension
+            }" is not allowed. Only "js" and "json" files are allowed.`
           );
         }
       }
@@ -75,12 +73,12 @@ class I18n {
       const locales = require(file);
 
       return (key, context = {}) => {
-        let translation = locales[key] || "";
+        let translation = locales[key] || '';
 
         if (translation) {
           for (let ctxKey in context) {
             translation = translation.replace(
-              "{" + ctxKey + "}",
+              '{' + ctxKey + '}',
               context[ctxKey]
             );
           }
@@ -90,10 +88,9 @@ class I18n {
       };
     };
 
-
     // Register a middleware to set i18n function on each conv
-    app.middleware((conv) => {
-        conv.__ = conv.i18n = __i18nFactory(conv);
+    app.middleware(conv => {
+      conv.__ = conv.i18n = __i18nFactory(conv);
     });
 
     app.__ = app.i18n = __i18nFactory();

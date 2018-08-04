@@ -34,7 +34,7 @@ Each file must export (or have) a valid JSON content:
 
 ## Install
 
-`npm i @manekinekko/actions-on-google-i18n -S`
+`npm i @sfeiross/actions-on-google-i18n -S`
 
 ## Options
 
@@ -58,7 +58,7 @@ The default locale that will be used if no locale can be extracted from the Acti
 Import in your main entry file and call the `.use()` method to register your `DialogflowApp` instance:
 
 ```js
-const i18n = require('@manekinekko/actions-on-google-i18n');
+const i18n = require('@sfeiross/actions-on-google-i18n');
 const app = dialogflow({ debug: true });;
 i18n.use(app);
 ```
@@ -77,7 +77,7 @@ app.intent('welcome', (conv) => {
 
 ```js
 'use strict';
-const i18n = require('@manekinekko/actions-on-google-i18n');
+const i18n = require('@sfeiross/actions-on-google-i18n');
 const functions = require('firebase-functions');
 const { dialogflow } = require('actions-on-google');
 
