@@ -1,6 +1,6 @@
 {
   "name": "@sfeir/actions-on-google-i18n",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An i18n module for the Actions On Google SDK",
   "main": "index.js",
   "scripts": {
