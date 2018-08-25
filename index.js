@@ -75,6 +75,10 @@ class I18n {
       return (key, context = {}) => {
         let translation = locales[key] || '';
 
+        if (Array.isArray(translation)) {
+          translation = translation[Math.floor((Math.random()*translation.length))]
+        }
+
         if (translation) {
           for (let ctxKey in context) {
             translation = translation.replace(

@@ -41,4 +41,12 @@ describe("translation", () => {
     });
   });
 
+  describe("when getUserLocale is es-ES", () => {
+    it("return one of the values on the array", () => {
+      i18n.configure({ directory, defaultExtension: "json" }).use(mockApp);
+      const conv = mockApp.newConv('es-ES');
+      expect(conv.__("clave")).toMatch("valor");
+    });
+  })
+
 });
