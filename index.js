@@ -73,19 +73,40 @@ class I18n {
       const locales = require(file);
 
       return (key, context = {}) => {
-        let translation = locales[key] || '';
+        let translation = locales[key];
+
+        if (!translation) {
+          // wring key provided
+          throw new Error(`Error: "${key}" was not found in locales [${ Object.keys(locales) }}].`);
+        }
 
         if (Array.isArray(translation)) {
+          // if there are many utterances for a given key, pick a random one
           translation = translation[Math.floor((Math.random()*translation.length))]
         }
 
         if (translation) {
-          for (let ctxKey in context) {
-            translation = translation.replace(
-              '{' + ctxKey + '}',
-              context[ctxKey]
-            );
+
+          if (typeof translation === "string") {
+            // if the utterance value is a simple text, 
+            // go ahead and apply the context 
+            translation = this.applyContext(translation, context);
           }
+          else if (typeof translation === "object") {
+
+            // if the utterance value is a {text, ssml} object
+            if (translation.text || translation.ssml) {
+              translation = {
+                text: this.applyContext(translation.text, context),
+                ssml: this.applyContext(translation.ssml, context),
+              }
+            }
+            else {
+              throw new Error("Error: only 'text' and 'ssml' values are allowed.");
+            }
+
+          }
+          
         }
 
         return translation;
@@ -98,6 +119,16 @@ class I18n {
     });
 
     app.__ = app.i18n = __i18nFactory();
+  }
+
+  applyContext(translation, context) {
+    for (let ctxKey in context) {
+      translation = translation.replace(
+        '{' + ctxKey + '}',
+        context[ctxKey]
+      );
+    }
+    return translation;
   }
 
   getLocale(conv) {
