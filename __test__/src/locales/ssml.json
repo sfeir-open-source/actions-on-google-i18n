@@ -1,0 +1,7 @@
+{
+  "key": [{
+    "text": "value",
+    "ssml": "<speak><s>This is sentence two.</s></speak>"
+  }],
+  "key_2": "value {variable}"
+}
