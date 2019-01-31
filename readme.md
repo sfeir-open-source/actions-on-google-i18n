@@ -81,7 +81,7 @@ Or an array of SSML and text utterances (B):
       "ssml": "<speak>Hi {name}</speak>"
     },
     {
-      "text": "How can I help?"
+      "text": "How can I help?",
       "ssml": "<speak>How can I help?</speak>"
     }
   ]
