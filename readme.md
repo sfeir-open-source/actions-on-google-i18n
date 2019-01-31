@@ -17,20 +17,78 @@ Create a folder with your locales (you can use either `js` or `json` files), e.g
 
 ```
 
-Each file must export (or have) a valid JSON content:
+Each file must export (or be) a valid JSON content. Each key can have a `text` and `ssml` entry:
 
 ```json
 // src/locales/en-US.json
 {
-  "WELCOME": "<speak>Hi {name}, I'm your awesome assistant. What can I do for ya?</speak>"
+  "WELCOME": {
+    "text": "Hi {name}, I'm your awesome assistant. What can I do for ya?",
+    "ssml": "<speak>Hi {name}, I'm your awesome assistant. What can I do for ya?</speak>"
+  }
 }
 ```
 ```json
 // src/locales/en-GB.json
 {
-  "WELCOME": "<speak>Hi {name}, I'm your amazing assistant. How can I help?</speak>"
+  "WELCOME": {
+    "text": "Hi {name}, I'm your amazing assistant. How can I help?",
+    "ssml": "<speak>Hi {name}, I'm your amazing assistant. How can I help?</speak>"
+  }
 }
 ```
+
+Or, you can use simple string which will default to a text entry:
+
+```json
+// src/locales/en-US.json
+{
+  "WELCOME": "Hi {name}, I'm your awesome assistant. What can I do for ya?"
+}
+```
+```json
+// src/locales/en-GB.json
+{
+  "WELCOME": "Hi {name}, I'm your amazing assistant. How can I help?"
+}
+```
+
+In either cases, you can also use an array of text utterances (A), **you will get a random phrase on each call**:
+
+```json
+// src/locales/en-GB.json
+{
+  "WELCOME": [
+    "Hi {name}, I'm your amazing assistant. How can I help?",
+    "Hi {name}",
+    "How can I help?"
+  ]
+}
+```
+
+Or an array of SSML and text utterances (B):
+
+```json
+// src/locales/en-GB.json
+{
+  "WELCOME": [
+    {
+      "text": "Hi {name}, I'm your amazing assistant. How can I help?",
+      "ssml": "<speak>Hi {name}, I'm your amazing assistant. How can I help?</speak>"
+    },
+    {
+      "text": "Hi {name}",
+      "ssml": "<speak>Hi {name}</speak>"
+    },
+    {
+      "text": "How can I help?"
+      "ssml": "<speak>How can I help?</speak>"
+    }
+  ]
+}
+```
+
+**Make sure NOT to mix and match (A) and (B) when using an array of utterances. This is not supported for now!**
 
 ## Install
 
